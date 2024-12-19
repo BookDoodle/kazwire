@@ -32,7 +32,7 @@
 	function getTitle() {
 		const storedTitle = localStorage.getItem('title');
 		if (storedTitle) {
-			document.title = storedTitle;
+			document.getElementsByTagName('title')[0].innerText = storedTitle;
 		}
 	}
 
@@ -53,7 +53,13 @@
 		}
 	}
 
+	afterNavigate(() => {
+		getTitle();
+		getFavicon();
+	});
+
 	import { experiments } from '$lib/experiments';
+	import { afterNavigate } from '$app/navigation';
 
 	let numOfExperiments = 0;
 

@@ -10,12 +10,14 @@
 	import Halloween from '$lib/components/Halloween.svelte';
 	import Thanksgiving from '$lib/components/Thanksgiving.svelte';
 	import Fortnite from '$lib/components/Fortnite.svelte';
+	import AprilFools from '$lib/components/AprilFools.svelte';
 	import {
 		neverShowSchoolRescue,
 		neverShowHalloween,
 		neverShowThanksgiving,
 		neverShowFortnite,
-		neverShowMidterms
+		neverShowMidterms,
+		neverShowAprilFools
 	} from '$lib/stores';
 
 	import SmallBox from '$lib/components/Box/SmallBox.svelte';
@@ -117,6 +119,19 @@
 		const year = date.getFullYear();
 
 		if (year === 2023 && month === 10 && day >= 3 && day <= 6) {
+			return true;
+		}
+
+		return false;
+	}
+
+	// april fools'
+	function checkIfAprilFools() {
+		const date = new Date();
+		const day = date.getDate();
+		const month = date.getMonth();
+
+		if (month === 3 && day === 1) {
 			return true;
 		}
 
@@ -239,6 +254,8 @@
 						<Thanksgiving />
 					{:else if checkIfShowHalloween() && !$neverShowHalloween}
 						<Halloween />
+					{:else if checkIfAprilFools() && !$neverShowAprilFools}
+						<AprilFools />
 					{/if}
 				{/if}
 			</grid>
